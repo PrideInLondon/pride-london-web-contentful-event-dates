@@ -1,0 +1,90 @@
+{
+  "name": "recurring-events",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "7.3.4",
+    "@babel/plugin-proposal-class-properties": "7.3.4",
+    "@babel/plugin-transform-runtime": "7.3.4",
+    "@babel/preset-env": "7.3.4",
+    "@babel/preset-react": "7.0.0",
+    "@contentful/contentful-extension-scripts": "0.15.1",
+    "@contentful/eslint-config-extension": "0.3.1",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^10.0.1",
+    "@testing-library/user-event": "^10.0.1",
+    "@types/jest": "24.0.15",
+    "@types/react": "^16.8.17",
+    "@types/react-datepicker": "^2.11.0",
+    "@types/react-dom": "^16.8.4",
+    "@types/shortid": "^0.0.29",
+    "@types/webpack-env": "1.13.9",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "contentful-cli": "0.33.2",
+    "cssnano": "4.1.10",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.10",
+    "prettier": "^1.19.1",
+    "sass": "^1.26.3",
+    "stylelint": "^13.2.1",
+    "stylelint-a11y": "^1.2.3",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-prettier": "^1.1.2",
+    "stylelint-scss": "^3.16.0",
+    "typescript": "3.7.5"
+  },
+  "scripts": {
+    "start": "contentful-extension-scripts start",
+    "build": "contentful-extension-scripts build",
+    "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx && tsc -p ./ --noEmit",
+    "test": "contentful-extension-scripts test --env=jsdom",
+    "test:watch": "contentful-extension-scripts test --env=jsdom --watch",
+    "test:coverage": "contentful-extension-scripts test --env=jsdom --coverage",
+    "deploy": "npm run build && contentful extension update --force",
+    "configure": "contentful space use && contentful space environment use",
+    "login": "contentful login",
+    "logout": "contentful logout",
+    "help": "contentful-extension-scripts help"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "yarn test",
+      "yarn eslint --fix",
+      "git add"
+    ],
+    "src/**/*.scss": [
+      "yarn stylelint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "@contentful/forma-36-fcss": "^0.0.20",
+    "@contentful/forma-36-react-components": "^3.11.3",
+    "@contentful/forma-36-tokens": "^0.3.0",
+    "@types/lodash.isequal": "^4.5.5",
+    "contentful-ui-extensions-sdk": "3.9.0",
+    "lodash.isequal": "^4.5.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-datepicker": "^2.14.0",
+    "react-dom": "^16.8.6",
+    "shortid": "^2.2.15"
+  },
+  "browserslist": [
+    "last 5 Chrome version",
+    "> 1%",
+    "not ie <= 11"
+  ]
+}
