@@ -1,6 +1,6 @@
 {
   "id": "recurring-events",
   "name": "recurring-events",
-  "srcdoc": "./build/index.html",
+  "src": "https://condescending-jones-107730.netlify.com/index.html",
   "fieldTypes": ["Object"]
 }
