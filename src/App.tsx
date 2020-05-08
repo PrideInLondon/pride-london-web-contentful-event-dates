@@ -107,7 +107,7 @@ export const App: React.FC<AppProps> = ({ sdk }) => {
         data-testid="same-day"
         className="f36-margin-right--s"
         onClick={() => {
-          dispatch({ type: 'CREATE', payload: 0 })
+          dispatch({ type: 'CREATE', payload: { days: 0 } })
         }}>
         Add for same day
       </Button>
@@ -115,16 +115,24 @@ export const App: React.FC<AppProps> = ({ sdk }) => {
         data-testid="next-day"
         className="f36-margin-right--s"
         onClick={() => {
-          dispatch({ type: 'CREATE', payload: 1 })
+          dispatch({ type: 'CREATE', payload: { days: 1 } })
         }}>
         Add for next day
       </Button>
       <Button
         data-testid="next-week"
+        className="f36-margin-right--s"
         onClick={() => {
-          dispatch({ type: 'CREATE', payload: 7 })
+          dispatch({ type: 'CREATE', payload: { days: 7 } })
         }}>
         Add for next week
+      </Button>
+      <Button
+        data-testid="next-month"
+        onClick={() => {
+          dispatch({ type: 'CREATE', payload: { months: 1 } })
+        }}>
+        Add for next month
       </Button>
     </>
   )

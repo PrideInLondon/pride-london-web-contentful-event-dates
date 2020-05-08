@@ -10,8 +10,13 @@ export interface AppProps {
   sdk: FieldExtensionSDK
 }
 
+export type Payload = {
+  days?: number
+  months?: number
+}
+
 export type Action =
-  | { type: 'CREATE'; payload: number }
+  | { type: 'CREATE'; payload: Payload }
   | { type: 'UPDATE'; payload: Partial<EventDate> }
   | { type: 'DELETE'; payload: Partial<EventDate> }
   | { type: 'SET'; payload: AppState }
