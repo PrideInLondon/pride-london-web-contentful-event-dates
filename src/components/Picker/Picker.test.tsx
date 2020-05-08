@@ -22,10 +22,10 @@ it('should set the date when one is selected', async () => {
   const date = new Date()
   date.setDate(1)
 
-  const { getByTestId, getAllByRole } = render(<Picker {...props} />)
+  const { getByTestId, getAllByText } = render(<Picker {...props} />)
 
   fireEvent.click(getByTestId('datepicker-button'))
-  fireEvent.click(getAllByRole('option')[0])
+  fireEvent.click(getAllByText('1')[0])
 
   expect((getByTestId('datepicker-input') as HTMLInputElement).value).toEqual(formatDate(date))
 })

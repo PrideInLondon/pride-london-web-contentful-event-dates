@@ -1,6 +1,13 @@
 import ids from 'shortid'
 import isEqual from 'lodash.isequal'
-import { Action, AppState, ContentfulAppState, EventDate, SerializedEventDate } from './App.types'
+import {
+  Action,
+  AppState,
+  ContentfulAppState,
+  EventDate,
+  Payload,
+  SerializedEventDate
+} from './App.types'
 
 export function addDays(date: Date, days: number): Date {
   const newDate = new Date()
@@ -9,22 +16,47 @@ export function addDays(date: Date, days: number): Date {
   return newDate
 }
 
+export function addMonths(date: Date, months: number): Date {
+  const newDate = new Date()
+  newDate.setMonth(date.getMonth() + months)
+  return newDate
+}
+
 export function dateComparator(a: EventDate, b: EventDate) {
   return a.startDate.getTime() - b.startDate.getTime()
+}
+
+function createEventDate(state: AppState, payload: Payload): EventDate {
+  switch (true) {
+    case !!payload.days:
+      return {
+        id: ids.generate(),
+        startDate: addDays(state.dates[state.dates.length - 1].startDate, payload.days as number),
+        endDate: addDays(state.dates[state.dates.length - 1].endDate, payload.days as number)
+      }
+    case !!payload.months:
+      return {
+        id: ids.generate(),
+        startDate: addMonths(
+          state.dates[state.dates.length - 1].startDate,
+          payload.months as number
+        ),
+        endDate: addMonths(state.dates[state.dates.length - 1].endDate, payload.months as number)
+      }
+    default:
+      return {
+        id: ids.generate(),
+        startDate: state.dates[state.dates.length - 1].startDate,
+        endDate: state.dates[state.dates.length - 1].endDate
+      }
+  }
 }
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'CREATE':
       return {
-        dates: [
-          ...state.dates,
-          {
-            id: ids.generate(),
-            startDate: addDays(state.dates[state.dates.length - 1].startDate, action.payload),
-            endDate: addDays(state.dates[state.dates.length - 1].endDate, action.payload)
-          }
-        ].sort(dateComparator)
+        dates: [...state.dates, createEventDate(state, action.payload)].sort(dateComparator)
       }
     case 'UPDATE':
       return {

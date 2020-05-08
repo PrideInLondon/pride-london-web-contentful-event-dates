@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { App } from './App'
-import { addDays } from './App.utils'
+import { addDays, addMonths } from './App.utils'
 import { formatDate } from './components/Picker/Picker.utils'
 
 beforeEach(() => {
@@ -90,5 +90,22 @@ it('should add an event for the next week', () => {
   )
   expect(getAllByTestId('end-picker')[1].querySelector('input')!.value).toEqual(
     formatDate(tomorrow)
+  )
+})
+
+it('should add an event for the next month', () => {
+  const today = new Date()
+  const nextMonth = addMonths(today, 1)
+
+  const { getAllByTestId, getByTestId } = render(<App sdk={sdk} />)
+
+  fireEvent.click(getByTestId('next-month'))
+
+  expect(getAllByTestId('event-row')).toHaveLength(2)
+  expect(getAllByTestId('start-picker')[1].querySelector('input')!.value).toEqual(
+    formatDate(nextMonth)
+  )
+  expect(getAllByTestId('end-picker')[1].querySelector('input')!.value).toEqual(
+    formatDate(nextMonth)
   )
 })
