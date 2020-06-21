@@ -19,6 +19,7 @@ export function addDays(date: Date, days: number): Date {
 export function addMonths(date: Date, months: number): Date {
   const newDate = new Date()
   newDate.setMonth(date.getMonth() + months)
+  newDate.setDate(date.getDate())
   return newDate
 }
 
