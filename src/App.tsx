@@ -132,7 +132,7 @@ export const App: React.FC<AppProps> = ({ sdk }) => {
         onClick={() => {
           dispatch({ type: 'CREATE', payload: { months: 1 } })
         }}>
-        Add for next month
+        Add for next month.
       </Button>
     </>
   )
